@@ -1,4 +1,4 @@
-from DB.database import conectar, criar_banco
+from database import conectar, criar_banco
 def inserir_instituicao(id_instituicao, nome, cep): 
     con = conectar()
     cursor = con.cursor()
