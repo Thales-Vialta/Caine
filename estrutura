@@ -1,0 +1,47 @@
+DeviceManager/
+├── main.py                      # Ponto de entrada (menu)
+├── dispositivos/
+│   └── dispositivo.py           # Classe Dispositivo
+├── instituicoes/
+│   └── instituicao.py           # Classe Instituicao
+├── reservas/
+│   └── reserva.py               # Classe Reserva
+├── sistema/
+│   └── gerenciador.py           # Classe Gerenciador (orquestra tudo)
+├── utils/
+│   └── helpers.py               # Funções auxiliares (opcional)
+├── data/
+│   └── mock_data.py             # Dados iniciais para teste
+├── README.md
+└── requirements.txt             # Dependências (se usar alguma)
+Etapas:
+Planejamento
+
+Liste os dados de um Dispositivo (ex: nome, tipo, status).
+
+Liste os dados de uma Instituição.
+
+Liste os dados de uma Reserva (data, instituição, dispositivo).
+
+Crie a estrutura de pastas e arquivos (conforme a hierarquia que passei).
+
+Modele as classes
+
+Dispositivo, Instituicao, Reserva, Gerenciador.
+
+Implemente o Gerenciador
+
+Métodos para adicionar dispositivos, cadastrar instituições, fazer reservas.
+
+Implemente o menu (main.py)
+
+Interface via terminal com opções para o usuário.
+
+Teste o sistema com dados falsos
+
+Use arquivos como mock_data.py para inserir dados.
+
+Documente
+
+Escreva o README com o objetivo, como rodar, e o que foi aprendido.
+
