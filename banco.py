@@ -38,5 +38,3 @@ def criar_banco():
     ''')
     con.commit()
     con.close()
-
-

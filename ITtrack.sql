@@ -1,5 +1,5 @@
 create table dispositivos(
-    ID_dispositivos INTEGER PRIMARY key AUTOINCREMENT, 
+    ID_dispositivos INTEGER PRIMARY key, 
     Marca varchar (30) not null, 
     Modelo varchar(50) not null,
     status boolean not null
