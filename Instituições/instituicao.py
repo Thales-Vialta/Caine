@@ -1,4 +1,6 @@
-from banco import conectar,criar_banco
+import sqlite3
+from DB.database import conectar
+from DB.database import criar_banco
         
 def inserir_escola(id_instituicao,nome): 
     con = conectar()
@@ -10,4 +12,4 @@ def inserir_escola(id_instituicao,nome):
     con.commit()
     con.close()
 criar_banco()
-inserir_escola.nome(input("Digite o nome da escola:" ));
+inserir_escola.execute()
