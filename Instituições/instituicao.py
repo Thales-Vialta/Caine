@@ -1,15 +1,17 @@
-import sqlite3
-from DB.database import conectar
-from DB.database import criar_banco
-        
-def inserir_escola(id_instituicao,nome): 
+from DB.database import conectar, criar_banco
+def inserir_instituicao(id_instituicao, nome, cep): 
     con = conectar()
     cursor = con.cursor()
     cursor.execute(
-        "INSERT INTO dispositivos (ID_dispositivos, Marca, Modelo, status) VALUES (?, ?, ?, ?)",
-        (id_instituicao, nome)  
+        "INSERT INTO instituicao (id_instituicao, nome, CEP) VALUES (?, ?, ?)",
+        (id_instituicao, nome, cep)
     )
     con.commit()
     con.close()
+
 criar_banco()
-inserir_escola.execute()
+
+id_instituicao = input("Digite o ID da instituição: ")
+nome = input("Digite o nome da instituição: ")
+cep = input("Digite o CEP da instituição (deve existir na tabela endereco): ")
+inserir_instituicao(id_instituicao, nome, cep)
