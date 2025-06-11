@@ -1,37 +1,39 @@
 from database import criar_banco
-from dispositivos import cadastrar_dispositivo, listar_dispositivos, atualizar_dispositivo, excluir_dispositivo
+from instituicao import verificar_instituicao, inserir_instituicao
 from reservas import criar_reserva, listar_reservas
 
-def menu_principal():
-    while True:
-        print("\n=== MENU PRINCIPAL ===")
-        print("1. Cadastrar dispositivo")
-        print("2. Listar dispositivos")
-        print("3. Atualizar dispositivo")
-        print("4. Excluir dispositivo")
-        print("5. Criar reserva")
-        print("6. Listar reservas")
-        print("0. Sair")
-        opcao = input("Escolha uma opção: ")
+def main():
+    criar_banco()
 
-        if opcao == "1":
-            cadastrar_dispositivo()
-        elif opcao == "2":
-            listar_dispositivos()
-        elif opcao == "3":
-            atualizar_dispositivo()
-        elif opcao == "4":
-            excluir_dispositivo()
-        elif opcao == "5":
-            criar_reserva()
-        elif opcao == "6":
+    print("=== Bem-vindo ao ITtrack ===")
+    nome_inst = input("Nome da instituição: ").strip()
+
+    id_inst = verificar_instituicao(nome_inst)
+
+    if not id_inst:
+        print("Instituição não encontrada.")
+        cep = input("Digite o CEP da nova instituição (deve já existir no banco): ")
+        id_inst = inserir_instituicao(nome_inst, cep)
+        print("Instituição cadastrada com sucesso!")
+
+    print(f"\nSistema ativo para a instituição: {nome_inst} (ID: {id_inst})")
+
+    while True:
+        print("\n--- Menu da Instituição ---")
+        print("1. Cadastrar dispositivo e criar reserva")
+        print("2. Listar reservas (formato matriz)")
+        print("0. Sair")
+        op = int(input("Escolha: "))
+
+        if op == 1:
+            criar_reserva(id_inst)
+        elif op == 2:
             listar_reservas()
-        elif opcao == "0":
-            print("Encerrando o sistema...")
+        elif op == 0:
+            print("Encerrando o sistema.")
             break
         else:
             print("Opção inválida!")
 
 if __name__ == "__main__":
-    criar_banco()
-    menu_principal()
+    main()

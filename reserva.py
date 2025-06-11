@@ -1,0 +1,36 @@
+from database import conectar
+from dispositivos import cadastrar_dispositivo
+
+def criar_reserva(id_instituicao):
+    print("Vamos cadastrar um dispositivo para reserva.")
+    id_disp = cadastrar_dispositivo()
+
+    con = conectar()
+    cursor = con.cursor()
+    cursor.execute(
+        "INSERT INTO reserva (ID_dispositivos) VALUES (?)",
+        (id_disp,)
+    )
+    con.commit()
+    con.close()
+    print(f"Reserva criada para a instituição ID {id_instituicao}.")
+
+def listar_reservas():
+    con = conectar()
+    cursor = con.cursor()
+    cursor.execute("""
+        SELECT r.ID_reserva, r.ID_dispositivos, d.Marca, d.Modelo, d.status
+        FROM reserva r
+        JOIN dispositivos d ON r.ID_dispositivos = d.ID_dispositivos
+    """)
+    reservas = cursor.fetchall()
+    con.close()
+
+    matriz = []
+    for r in reservas:
+        status_str = "Ativo" if r[4] else "Inativo"
+        matriz.append([r[0], r[1], r[2], r[3], status_str])
+
+    print("\n=== RESERVAS (Formato Matriz) ===")
+    for linha in matriz:
+        print(linha)
