@@ -1,15 +1,15 @@
 from database import conectar
-from dispositivos import cadastrar_dispositivo
+from dispositivos import cadastrar_dispositivos
 
-def criar_reserva(id_instituicao):
+def criar_reserva(id_instituicao, id_dispositivo):
     print("Vamos cadastrar um dispositivo para reserva.")
-    id_disp = cadastrar_dispositivo()
+    id_dispositivo = cadastrar_dispositivos()
 
     con = conectar()
     cursor = con.cursor()
     cursor.execute(
         "INSERT INTO reserva (ID_dispositivos) VALUES (?)",
-        (id_disp,)
+        (id_dispositivo,)
     )
     con.commit()
     con.close()
