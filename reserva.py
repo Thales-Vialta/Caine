@@ -1,19 +1,43 @@
 from database import conectar
-from dispositivos import cadastrar_dispositivos
 
-def criar_reserva(id_instituicao, id_dispositivo):
-    print("Vamos cadastrar um dispositivo para reserva.")
-    id_dispositivo = cadastrar_dispositivos()
-
+def criar_reserva(id_instituicao):
     con = conectar()
     cursor = con.cursor()
-    cursor.execute(
-        "INSERT INTO reserva (ID_dispositivos) VALUES (?)",
-        (id_dispositivo,)
-    )
+    
+
+    cursor.execute("SELECT ID_dispositivos, Marca, Modelo FROM dispositivos WHERE status = 1")
+    ativos = cursor.fetchall()
+
+    if not ativos:
+        print("Nenhum dispositivo disponível para reserva.")
+        con.close()
+        return
+
+    print("\n=== DISPOSITIVOS DISPONÍVEIS ===")
+    for d in ativos:
+        print(f"ID: {d[0]} | Marca: {d[1]} | Modelo: {d[2]}")
+
+    try:
+        id_dispositivo = int(input("Digite o ID do dispositivo a ser reservado: "))
+    except ValueError:
+        print("ID inválido.")
+        con.close()
+        return
+
+    # Verifica se o ID é válido e está ativo
+    cursor.execute("SELECT * FROM dispositivos WHERE ID_dispositivos = ? AND status = 1", (id_dispositivo,))
+    if not cursor.fetchone():
+        print("Dispositivo inválido ou já reservado.")
+        con.close()
+        return
+
+    # Insere reserva e atualiza status
+    cursor.execute("INSERT INTO reserva (ID_dispositivos) VALUES (?)", (id_dispositivo,))
+    cursor.execute("UPDATE dispositivos SET status = 0 WHERE ID_dispositivos = ?", (id_dispositivo,))
+
     con.commit()
     con.close()
-    print(f"Reserva criada para a instituição ID {id_instituicao}.")
+    print(f"Reserva criada com sucesso para o dispositivo ID {id_dispositivo}.")
 
 def listar_reservas():
     con = conectar()
