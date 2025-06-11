@@ -71,7 +71,7 @@ Durante o desenvolvimento deste sistema, foram reforçados os seguintes aprendiz
 
 ---
 
-## 📎 Requisitos
+## Requisitos
 
 * Python 3.10+
 * Biblioteca padrão (`sqlite3`, `os`, etc)
