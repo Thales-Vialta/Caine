@@ -1,7 +1,7 @@
 import sqlite3
 
 def conectar():
-    return sqlite3.connect('ITtrack.db')
+    return sqlite3.connect('Caine.db')
 
 def criar_banco(): 
     con = conectar()
